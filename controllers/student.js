@@ -19,7 +19,8 @@ exports.getById = async (req, res) => {
     //parse to json
     const data = JSON.parse(datajson);
     //finds student by his id
-    const student = data.students.filter(student => student.number == id);
+    const student = data.students.filter((student) => student.number == id);
+    if (student.length == 0) return res.status(404).send("Not found!");
     //return student
     res.send(student);
 }
