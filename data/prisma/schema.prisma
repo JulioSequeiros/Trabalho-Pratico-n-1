@@ -14,3 +14,18 @@ model Students {
   city String
   birthday String
 }
+
+model Schools {
+  id    Int     @id @default(autoincrement())
+  sigla String  @unique
+  name  String
+  morada String
+  website String
+}
+
+model Courses {
+  id    Int     @id @default(autoincrement())
+  number String  @unique
+  name  String
+  sigla String
+}

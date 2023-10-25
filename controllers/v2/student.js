@@ -1,96 +1,84 @@
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
-//return all students
+// Return all students
 exports.getAll = async (req, res) => {
     try {
-        //read all from database
         const response = await prisma.students.findMany();
-        res.status(200).json(response)
+        res.status(200).json(response);
     } catch (error) {
-        res.status(500).json({ msg: error.message })
+        res.status(500).json({ error: 'Internal Server Error', msg: error.message });
     }
-}
+};
 
-//return student by his id (student number)
+// Return student by their id (student number)
 exports.getById = async (req, res) => {
-    //get student id requested
-    const id = req.params.number;
+    const number = req.params.number;
     try {
-        //finds student by his id (number)
         const response = await prisma.students.findUnique({
             where: {
-                number: id,
+                number: number,
             },
-        })
-        //return student
-        res.status(200).json(response)
+        });
+        if (response) {
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({ error: 'Not Found', msg: 'Student not found' });
+        }
     } catch (error) {
-        res.status(404).json({ msg: error.message })
+        res.status(500).json({ error: 'Internal Server Error', msg: error.message });
     }
-}
+};
 
-//creates student
+// Create student
 exports.create = async (req, res) => {
-    //get requested student properties
-    const { number, name, city, sigla, birthday } = req.body;
+    const { number, name, city, birthday } = req.body;
     try {
-        //creates new student
         const student = await prisma.students.create({
             data: {
                 number: number,
                 name: name,
-                sigla: sigla,
                 city: city,
-                birthday: birthday
-
+                birthday: birthday,
             },
-        })
-        //return student created
-        res.status(201).json(student)
+        });
+        res.status(201).json(student);
     } catch (error) {
-        res.status(400).json({ msg: error.message })
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
     }
-}
+};
 
-//updates student
+// Update student
 exports.update = async (req, res) => {
-    const { number, name, city, sigla, birthday } = req.body;
-
+    const { number, name, city, birthday } = req.body;
     try {
-        //find student to update their data
         const student = await prisma.students.update({
             where: {
                 number: number,
             },
             data: {
                 name: name,
-                sigla: sigla,
                 city: city,
-                birthday: birthday
+                birthday: birthday,
             },
-        })
-        //return student updated
-        res.status(200).json(student)
+        });
+        res.status(200).json(student);
     } catch (error) {
-        res.status(400).json({ msg: error.message })
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
     }
-}
+};
 
-//delete student by his id (student number)
+// Delete student by their id (student number)
 exports.delete = async (req, res) => {
-    //get student number requested
     const number = req.params.number;
     try {
-        //delete student
         await prisma.students.delete({
             where: {
                 number: number,
             },
-        })
-        //just return ok
-        res.status(200).send("ok");
+        });
+        res.status(204).send(); // Using 204 No Content for successful deletion
     } catch (error) {
-        res.status(400).json({ msg: error.message })
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
     }
-}
+};
