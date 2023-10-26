@@ -32,15 +32,13 @@ exports.getById = async (req, res) => {
 
 // Create course
 exports.create = async (req, res) => {
-    const { sigla, name, morada, website, number } = req.body;
+    const { sigla, name, number } = req.body;
     try {
         const course = await prisma.courses.create({
             data: {
                 number: number,
                 name: name,
                 sigla: sigla,
-                morada: morada,
-                website: website
             },
         });
         res.status(201).json(course);
@@ -60,8 +58,6 @@ exports.update = async (req, res) => {
             data: {
                 name: name,
                 sigla: sigla,
-                morada: morada,
-                website: website
             },
         });
         res.status(200).json(course);
