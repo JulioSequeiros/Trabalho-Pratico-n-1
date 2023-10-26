@@ -1,97 +1,86 @@
-const fs = require('fs');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-//return course
+// Return all courses
 exports.getAll = async (req, res) => {
-    //read local data json file
-    const datajson = fs.readFileSync("data/local/data.json", "utf-8");
-    //parse to json
-    const data = JSON.parse(datajson);
-    //returns students array
-    return res.send(data.courses);
-}
+    try {
+        const response = await prisma.courses.findMany();
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error', msg: error.message });
+    }
+};
 
-//return course by his id
+// Return course by their id (course number)
 exports.getById = async (req, res) => {
-    //get student id requested
-    const id = req.params.number;
-    //read local data json file
-    const datajson = fs.readFileSync("data/local/data.json", "utf-8"); 
-    //parse to json
-    const data = JSON.parse(datajson);
-    //finds student by his id
-    const course = data.courses.filter(course => course.number == id);
-    if (course.length == 0) return res.status(404).send("Curso não existe!");
-    //return student
-    res.send(course);
-}
+    const number = req.params.number;
+    try {
+        const response = await prisma.courses.findUnique({
+            where: {
+                number: number,
+            },
+        });
+        if (response) {
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({ error: 'Not Found', msg: 'Course not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error', msg: error.message });
+    }
+};
 
-//creates course
+// Create course
 exports.create = async (req, res) => {
-    //get requested student properties
-    const {number, name, sigla, school} = req.body;
-    if (!number || !name || !sigla || !school)
-        return res.status(400).send("Dados inválidos!");
-    //read local data json file
-    const datajson = fs.readFileSync("data/local/data.json", "utf-8");
-    //parse to json
-    const data = JSON.parse(datajson);
-    if (data.courses.find((course) => course.number == number))
-        return res.status(400).send("Curso já existe!");
-    //add to students array
-    data.courses.push(req.body);
-    //add to students array
+    const { sigla, name, morada, website, number } = req.body;
     try {
-        fs.writeFileSync("data/local/data.json", JSON.stringify(data));
-    } catch {
-        return res.status(400).send("Erro!");
-    } finally {
-        //return new student
-        return res.status(201).send(req.body);
+        const course = await prisma.courses.create({
+            data: {
+                number: number,
+                name: name,
+                sigla: sigla,
+                morada: morada,
+                website: website
+            },
+        });
+        res.status(201).json(course);
+    } catch (error) {
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
     }
 };
 
-//updates student
+// Update course
 exports.update = async (req, res) => {
-    const {number, name, sigla, school} = req.body;
-    if (!number || !name || !sigla || !school)
-        return res.status(400).send("Dados inválidos!");
-    //read local data json file
-    const datajson = fs.readFileSync("data/local/data.json", "utf-8");
-    //parse to json
-    const data = JSON.parse(datajson);
-    //find student to update
-    const course = data.courses.find(student => course.number == course);
-    if (!course) return res.status(404).send("Curso não existe!");
-    //update properties
-    course.name = name;
-    course.sigla = sigla;
-    course.school = school;
-    //update local database
+    const { sigla, name, morada, website,number } = req.body;
     try {
-        fs.writeFileSync("data/local/data.json", JSON.stringify(data));
-    } catch {
-        return res.status(400).send("Erro!");
-    } finally {
-        //return updated student
-        return res.send({number, name, sigla, school});
+        const course = await prisma.courses.update({
+            where: {
+                number: number,
+            },
+            data: {
+                name: name,
+                sigla: sigla,
+                morada: morada,
+                website: website
+            },
+        });
+        res.status(200).json(course);
+    } catch (error) {
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
     }
 };
 
-//delete student by his id (student number)
+// Delete course by their id (course number)
 exports.delete = async (req, res) => {
-    //get student id requested
-    const id = req.params.number;
-    //read local data json file
-    const datajson = fs.readFileSync("data/local/data.json", "utf-8"); 
-    //parse to json
-    const data = JSON.parse(datajson);
-    //find student to delete
-    const course = data.courses.filter(course => course.number == id);
-    if (course.length == 0) return res.status(404).send("Curso não existe!");
-    //delete student
-    data.courses.splice(course, 1);
-    //update local database
-    fs.writeFileSync('data/local/data.json', JSON.stringify(data));
-    //return ok
-    return res.status(200).send("ok");
-}
+    const number = req.params.number;
+    try {
+        await prisma.courses.delete({
+            where: {
+                number: number,
+            },
+        });
+        res.status(204).send(); // Using 204 No Content for successful deletion
+    } catch (error) {
+        res.status(400).json({ error: 'Bad Request', msg: error.message });
+    }
+};
