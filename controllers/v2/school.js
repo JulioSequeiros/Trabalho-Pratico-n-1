@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Return all students
+// Return all scholls
 exports.getAll = async (req, res) => {
     try {
         const response = await prisma.schools.findMany();
@@ -13,11 +13,11 @@ exports.getAll = async (req, res) => {
 
 // Return student by their id (student number)
 exports.getById = async (req, res) => {
-    const number = req.params.number;
+    const sigla = req.params.sigla;
     try {
         const response = await prisma.schools.findUnique({
             where: {
-                number: number,
+                sigla: sigla,
             },
         });
         if (response) {
@@ -32,11 +32,10 @@ exports.getById = async (req, res) => {
 
 // Create student
 exports.create = async (req, res) => {
-    const { sigla, name, morada, website, number } = req.body;
+    const { sigla, name, morada, website } = req.body;
     try {
         const school = await prisma.schools.create({
             data: {
-                number: number,
                 name: name,
                 sigla: sigla,
                 morada: morada,
@@ -51,15 +50,14 @@ exports.create = async (req, res) => {
 
 // Update student
 exports.update = async (req, res) => {
-    const { sigla, name, morada, website,number } = req.body;
+    const { sigla, name, morada, website ,number } = req.body;
     try {
         const school = await prisma.schools.update({
             where: {
-                number: number,
+                sigla: sigla,
             },
             data: {
                 name: name,
-                sigla: sigla,
                 morada: morada,
                 website: website
             },
@@ -72,11 +70,11 @@ exports.update = async (req, res) => {
 
 // Delete student by their id (student number)
 exports.delete = async (req, res) => {
-    const number = req.params.number;
+    const sigla = req.params.sigla;
     try {
         await prisma.schools.delete({
             where: {
-                number: number,
+                sigla: sigla,
             },
         });
         res.status(204).send(); // Using 204 No Content for successful deletion
