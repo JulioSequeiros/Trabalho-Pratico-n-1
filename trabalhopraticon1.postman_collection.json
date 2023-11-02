@@ -682,7 +682,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/1778",
+									"raw": "{{base_url}}/api/v2/students/4",
 									"host": [
 										"{{base_url}}"
 									],
@@ -690,7 +690,7 @@
 										"api",
 										"v2",
 										"students",
-										"1778"
+										"4"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -718,7 +718,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"number\": \"1778\",\n    \"name\": \"Marcelo F\",\n    \"city\": \"Braga\",\n    \"birthday\": \"17-09-1991\"\n}",
+									"raw": "{\n    \"number\": \"1779\",\n    \"name\": \"Júlio S\",\n    \"city\": \"Vila Nova de Cerveira\",\n    \"birthday\": \"27-01-2004\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -930,7 +930,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/v2/schools/sigla",
+									"raw": "{{base_url}}/api/v2/schools/4",
 									"host": [
 										"{{base_url}}"
 									],
@@ -938,7 +938,7 @@
 										"api",
 										"v2",
 										"schools",
-										"sigla"
+										"4"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -966,7 +966,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"number\": \"1778\",\n    \"name\": \"Marcelo F\",\n    \"city\": \"Braga\",\n    \"birthday\": \"17-09-1991\"\n}",
+									"raw": "{\n    \"name\": \"Escola Superior Tecnologia e Gestão\",\n    \"sigla\": \"ESTG\",\n    \"morada\": \"Viana de Castelo\",\n    \"website\": \"estg.ipvc.pt\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -974,14 +974,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/create",
+									"raw": "{{base_url}}/api/v2/schools/create",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"schools",
 										"create"
 									]
 								},
@@ -1018,14 +1018,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/update",
+									"raw": "{{base_url}}/api/v2/schools/update",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"schools",
 										"update"
 									]
 								},
@@ -1062,14 +1062,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/delete/1778",
+									"raw": "{{base_url}}/api/v2/schools/delete/1778",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"schools",
 										"delete",
 										"1778"
 									]
@@ -1102,14 +1102,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/v2/schools",
+									"raw": "{{base_url}}/api/v2/courses",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"schools"
+										"courses"
 									]
 								}
 							},
@@ -1134,15 +1134,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/v2/schools/sigla",
+									"raw": "{{base_url}}/api/v2/courses/20",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"schools",
-										"sigla"
+										"courses",
+										"20"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -1170,7 +1170,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"number\": \"1778\",\n    \"name\": \"Marcelo F\",\n    \"city\": \"Braga\",\n    \"birthday\": \"17-09-1991\"\n}",
+									"raw": "{\n    \"number\": \"20\",\n    \"name\": \"Desenvolvimento Web e Multimedia\",\n    \"sigla\": \"DWM\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1178,14 +1178,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/create",
+									"raw": "{{base_url}}/api/v2/courses/create",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"courses",
 										"create"
 									]
 								},
@@ -1222,14 +1222,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/update",
+									"raw": "{{base_url}}/api/v2/courses/update",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"courses",
 										"update"
 									]
 								},
@@ -1266,19 +1266,82 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v2/students/delete/1778",
+									"raw": "{{base_url}}/api/v2/courses/delete/1778",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"v2",
-										"students",
+										"courses",
 										"delete",
 										"1778"
 									]
 								},
 								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"name\":\"Julio\",\r\n    \"email\":\"email@ipvc\",\r\n    \"password\":\"password\",\r\n    \"isAdmin\": true \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v2/auth/signup",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"email@ipvc\",\r\n    \"password\":\"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v2/auth/signin",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"auth",
+										"signin"
+									]
+								}
 							},
 							"response": []
 						}
